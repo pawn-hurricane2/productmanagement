@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index Page</title>
+</head>
+<body>
+<h1>Hii this is the index page of this app</h1>
+{% for blog in blogs %}
+{{blog.text}}
+{{blog.like}}<br/><br/>
+{% endfor %}
+<a href="/blog/login/">click here to login</a><br><br>
+<a href="/blog/register/">click here to register</a>
+</body>
+</html>
