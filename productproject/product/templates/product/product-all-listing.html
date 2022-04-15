@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+
+{% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+      <li class="{{ message.tags }}">{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+
+<h1 align="center">Here are all the products</h1><br>
+
+{% if product_ordering %}
+<table border="3" width="1000">
+    <tr>
+    <td>Product <a href="/product/all-listing/?product_order=asc">&#x25B2</a>, <a href="/product/all-listing/?product_order=desc">&#x25BC</a></td>
+    <td>Sub Category <a href="/product/all-listing/?sub_category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?sub_category_order=desc">&#x25BC</a></td>
+    <td>Category <a href="/product/all-listing/?category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?category_order=desc">&#x25BC</a></td>
+</tr>
+{% for product in products %}
+<tr>
+    <td>{{product.name}}</td>
+    <td>{{product.sub_category.name}}</td>
+    <td>{{product.sub_category.category.name}}</td>
+</tr>
+{% endfor %}
+</table>
+{% elif sub_category_ordering %}
+<table border="3" width="1000">
+    <tr>
+    <td>Product <a href="/product/all-listing/?product_order=asc">&#x25B2</a>, <a href="/product/all-listing/?product_order=desc">&#x25BC</a></td>
+    <td>Sub Category <a href="/product/all-listing/?sub_category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?sub_category_order=desc">&#x25BC</a></td>
+    <td>Category <a href="/product/all-listing/?category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?category_order=desc">&#x25BC</a></td>
+</tr>
+{% for sub_category in sub_categories %}
+{% for product in sub_category.product_set.all %}
+<tr>
+    <td>{{product.name}}</td>
+    <td>{{product.sub_category.name}}</td>
+    <td>{{product.sub_category.category.name}}</td>
+</tr>
+{% endfor %}
+{% endfor %}
+</table>
+{% elif category_ordering %}
+<table border="3" width="1000">
+    <tr>
+    <td>Product <a href="/product/all-listing/?product_order=asc">&#x25B2</a>, <a href="/product/all-listing/?product_order=desc">&#x25BC</a></td>
+    <td>Sub Category <a href="/product/all-listing/?sub_category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?sub_category_order=desc">&#x25BC</a></td>
+    <td>Category <a href="/product/all-listing/?category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?category_order=desc">&#x25BC</a></td>
+</tr>
+{% for category in categories %}
+{% for sub_category in category.subcategory_set.all %}
+{% for product in sub_category.product_set.all %}
+<tr>
+    <td>{{product.name}}</td>
+    <td>{{product.sub_category.name}}</td>
+    <td>{{product.sub_category.category.name}}</td>
+</tr>
+{% endfor %}
+{% endfor %}
+{% endfor %}
+</table>
+{% else %}
+<table border="3" width="1000">
+    <tr>
+    <td>Product <a href="/product/all-listing/?product_order=asc">&#x25B2</a>, <a href="/product/all-listing/?product_order=desc">&#x25BC</a></td>
+    <td>Sub Category <a href="/product/all-listing/?sub_category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?sub_category_order=desc">&#x25BC</a></td>
+    <td>Category <a href="/product/all-listing/?category_order=asc">&#x25B2</a>, <a href="/product/all-listing/?category_order=desc">&#x25BC</a></td>
+</tr>
+{% for product in products %}
+<tr>
+    <td>{{product.name}}</td>
+    <td>{{product.sub_category.name}}</td>
+    <td>{{product.sub_category.category.name}}</td>
+</tr>
+{% endfor %}
+</table>
+{% endif %}
+
+<h4>Add a product</h4>
+
+<form action="/product/add-product/" method="post">
+    {% csrf_token %}
+  <label>Name:</label>
+  <input type="text" name="name" style="width:300px"><br><br>
+
+    <label >Choose a Sub Category:</label>
+    <select name="sub_category" id="sub_category">
+{% for value in all_subcategories %}
+    <option value="{{ value }}">{{ value }}</option>
+{% endfor %}
+</select><br><br>
+    <label >Choose a Category:</label>
+    <select name="category" id="category">
+{% for value in all_categories %}
+    <option value="{{ value }}">{{ value }}</option>
+{% endfor %}
+</select><br><br>
+
+  <input type="submit" value="Add">
+</form>
+
+</body>
+</html>

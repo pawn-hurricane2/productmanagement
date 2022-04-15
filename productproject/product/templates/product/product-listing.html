@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<h1 align="center">Here are the products of sub category {{sub_cat.name}}</h1><br>
+{% for product in product_list %}
+{{forloop.counter}} - {{product.name}}
+<hr>
+{% endfor %}
+</body>
+</html>

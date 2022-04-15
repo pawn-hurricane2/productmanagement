@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sub Categories</title>
+</head>
+<body>
+<h1 align="center">Here are the sub categories of category {{cat.name}}</h1><br>
+<h3>Click on any sub category to open its products</h3>
+{% for sub_cat in sub_categories_list %}
+{{forloop.counter}} -
+<a href="/product/product-listing/{{sub_cat.id}}/">{{sub_cat.name}}</a><br>
+<hr>
+{% endfor %}
+</body>
+</html>

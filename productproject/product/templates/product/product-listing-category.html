@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Products</title>
+</head>
+<body>
+<h1 align="center">Here are the products of category {{category.name}}</h1><br>
+{% for subcategory in category.subcategory_set.all %}
+{% for product in subcategory.product_set.all %}
+- {{product.name}}<br><br>
+{% endfor %}
+{% endfor %}
+<hr>
+
+</body>
+</html>
